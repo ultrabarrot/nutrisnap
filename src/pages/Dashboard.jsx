@@ -23,6 +23,18 @@ const mealPlans = {
       { meal: 'Cena', items: 'Ensalada César con pollo (sin crutones)', kcal: 420 },
       { meal: 'Snack', items: 'Queso + nueces', kcal: 200 },
     ],
+    mediterranean: [
+      { meal: 'Desayuno', items: 'Tostadas integrales + tomate + aceite de oliva', kcal: 300 },
+      { meal: 'Comida', items: 'Ensalada griega + hummus + pan pita integral', kcal: 480 },
+      { meal: 'Cena', items: 'Pescado a la plancha + verduras asadas', kcal: 420 },
+      { meal: 'Snack', items: 'Yogur griego + nueces', kcal: 180 },
+    ],
+    vegetarian: [
+      { meal: 'Desayuno', items: 'Avena con plátano + semillas de chía', kcal: 320 },
+      { meal: 'Comida', items: 'Bowl de quinoa + garbanzos + verduras asadas', kcal: 500 },
+      { meal: 'Cena', items: 'Tortilla de espinacas + ensalada mixta', kcal: 380 },
+      { meal: 'Snack', items: 'Fruta + yogur vegetal', kcal: 170 },
+    ],
   },
   maintain: {
     balanced: [
@@ -31,6 +43,12 @@ const mealPlans = {
       { meal: 'Cena', items: 'Sopa de verduras + pescado a la plancha', kcal: 450 },
       { meal: 'Snack', items: 'Yogur + granola', kcal: 220 },
     ],
+    vegetarian: [
+      { meal: 'Desayuno', items: 'Tostadas integrales + aguacate + tomate', kcal: 360 },
+      { meal: 'Comida', items: 'Pasta integral con verduras y tofu', kcal: 580 },
+      { meal: 'Cena', items: 'Sopa de lentejas + ensalada', kcal: 440 },
+      { meal: 'Snack', items: 'Yogur vegetal + frutos secos', kcal: 210 },
+    ],
   },
   gain: {
     balanced: [
@@ -38,6 +56,12 @@ const mealPlans = {
       { meal: 'Comida', items: 'Arroz + ternera + legumbres', kcal: 720 },
       { meal: 'Cena', items: 'Pasta + pollo + queso', kcal: 600 },
       { meal: 'Snack', items: 'Batido de leche + cacahuete', kcal: 300 },
+    ],
+    vegetarian: [
+      { meal: 'Desayuno', items: 'Batido de avena, plátano y proteína vegetal', kcal: 460 },
+      { meal: 'Comida', items: 'Arroz + tofu + legumbres + aguacate', kcal: 700 },
+      { meal: 'Cena', items: 'Pasta + seitán + queso', kcal: 620 },
+      { meal: 'Snack', items: 'Batido de leche vegetal + cacahuete', kcal: 300 },
     ],
   },
 }
@@ -56,7 +80,8 @@ export default function Dashboard() {
 
   const planKey = profile.goal || 'lose'
   const dietKey = profile.diet || 'balanced'
-  const plan = (mealPlans[planKey] && mealPlans[planKey][dietKey]) || (mealPlans[planKey] && mealPlans[planKey].balanced) || mealPlans.lose.balanced
+  const goalPlans = mealPlans[planKey] || mealPlans.lose
+  const plan = goalPlans[dietKey] || goalPlans.balanced || mealPlans.lose.balanced
   const totalKcal = plan.reduce((a, m) => a + m.kcal, 0)
 
   const addWeight = () => {
